@@ -417,6 +417,7 @@ public class Game {
 
         int minPlayers = config.getInt("schematics." + schematicName + ".min-players", slots);
         int onlinePlayers = Bukkit.getOnlinePlayers().length;
+        onlinePlayers = (onlinePlayers > 1) ? onlinePlayers : 2;
         return (minPlayers > onlinePlayers) ? onlinePlayers : minPlayers;
     }
 
