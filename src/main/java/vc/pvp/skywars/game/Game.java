@@ -407,7 +407,9 @@ public class Game {
         FileConfiguration config = SkyWars.get().getConfig();
         String schematicName = SchematicController.get().getName(schematic);
 
-        return config.getInt("schematics." + schematicName + ".min-players", slots);
+        int minPlayers = config.getInt("schematics." + schematicName + ".min-players", slots);
+        int onlinePlayers = Bukkit.getOnlinePlayers().length;
+        return (minPlayers > onlinePlayers) ? onlinePlayers : minPlayers;
     }
 
     private int getTimer() {
