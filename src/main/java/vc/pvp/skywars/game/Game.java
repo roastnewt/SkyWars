@@ -124,9 +124,9 @@ public class Game {
     public void onPlayerJoin(GamePlayer gamePlayer) {
         Player player = gamePlayer.getBukkitPlayer();
 
-        int id = getFistEmpty();
+        int id = getFirstEmpty();
         playerCount++;
-        idPlayerMap.put(getFistEmpty(), gamePlayer);
+        idPlayerMap.put(id, gamePlayer);
         playerIdMap.put(gamePlayer, id);
 
         sendMessage(new Messaging.MessageFormatter()
@@ -450,7 +450,7 @@ public class Game {
         return null;
     }
 
-    private int getFistEmpty() {
+    private int getFirstEmpty() {
         for (Map.Entry<Integer, GamePlayer> playerEntry : idPlayerMap.entrySet()) {
             if (playerEntry.getValue() == null) {
                 return playerEntry.getKey();
