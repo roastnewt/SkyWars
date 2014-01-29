@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.ExperienceOrb;
@@ -422,7 +423,9 @@ public class Game {
 
     public void sendMessage(String message) {
         for (GamePlayer gamePlayer : getPlayers()) {
-            gamePlayer.getBukkitPlayer().sendMessage(message);
+        	Player bukkitPlayer = gamePlayer.getBukkitPlayer();
+        	bukkitPlayer.playSound(bukkitPlayer.getLocation(), Sound.NOTE_PIANO, 1.0f, 1.0f);
+            bukkitPlayer.sendMessage(message);
         }
     }
 
