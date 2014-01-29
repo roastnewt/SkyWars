@@ -162,7 +162,7 @@ public class WorldController {
             world.setTicksPerMonsterSpawns(0);
         }
         world.setAutoSave(false);
-        world.setGameRuleValue("doFireTick", "false");
+        world.setGameRuleValue("doFireTick", "true");
 
         return world;
     }
