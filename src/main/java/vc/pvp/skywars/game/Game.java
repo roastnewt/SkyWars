@@ -3,9 +3,11 @@ package vc.pvp.skywars.game;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.sk89q.worldedit.CuboidClipboard;
+
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.ExperienceOrb;
@@ -15,6 +17,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
+
 import vc.pvp.skywars.SkyWars;
 import vc.pvp.skywars.config.PluginConfig;
 import vc.pvp.skywars.controllers.*;
@@ -27,6 +30,7 @@ import vc.pvp.skywars.utilities.StringUtils;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
 
@@ -321,7 +325,7 @@ public class Game {
             if (gamePlayer != null) {
                 objective.getScore(gamePlayer.getBukkitPlayer()).setScore(0);
                 IconMenuController.get().destroy(gamePlayer.getBukkitPlayer());
-                getSpawn(playerEntry.getKey()).clone().add(0, -1D, 0).getBlock().setTypeId(0);
+                getSpawn(playerEntry.getKey()).clone().add(0, -1D, 0).getBlock().setType(Material.AIR);
                 gamePlayer.setGamesPlayed(gamePlayer.getGamesPlayed() + 1);
             }
         }
@@ -385,6 +389,8 @@ public class Game {
 
             case PLAYING:
                 break;
+		default:
+			break;
         }
     }
 

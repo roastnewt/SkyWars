@@ -6,8 +6,6 @@ import com.onarandombox.MultiverseCore.MultiverseCore;
 import com.sk89q.worldedit.CuboidClipboard;
 import com.sk89q.worldedit.Vector;
 import org.bukkit.*;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
 import vc.pvp.skywars.config.PluginConfig;
 import vc.pvp.skywars.game.Game;
 import vc.pvp.skywars.utilities.LogUtils;
@@ -147,7 +145,7 @@ public class WorldController {
             if (ret) {
                 MultiverseWorld mvWorld = mV.getMVWorldManager().getMVWorld(worldName);
                 world = mvWorld.getCBWorld();
-                mvWorld.setDifficulty(Difficulty.NORMAL.toString());
+                mvWorld.setDifficulty(Difficulty.NORMAL);
                 mvWorld.setPVPMode(true);
                 mvWorld.setEnableWeather(false);
                 mvWorld.setKeepSpawnInMemory(false);
