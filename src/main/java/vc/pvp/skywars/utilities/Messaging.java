@@ -37,7 +37,8 @@ public final class Messaging {
             return "";
         }
 
-        return COLOR_PATTERN.matcher(input).replaceAll("");
+        return input.replaceAll("&","");
+        //return COLOR_PATTERN.matcher(input).replaceAll("");
     }
 
     public String getPrefix() {
