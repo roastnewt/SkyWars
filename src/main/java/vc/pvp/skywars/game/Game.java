@@ -419,7 +419,7 @@ public class Game {
         String schematicName = SchematicController.get().getName(schematic);
 
         int minPlayers = config.getInt("schematics." + schematicName + ".min-players", slots);
-        int onlinePlayers = Bukkit.getOnlinePlayers().length;
+        int onlinePlayers = Bukkit.getOnlinePlayers().size();
         onlinePlayers = (onlinePlayers > 1) ? onlinePlayers : 2;
         return (minPlayers > onlinePlayers) ? onlinePlayers : minPlayers;
     }
