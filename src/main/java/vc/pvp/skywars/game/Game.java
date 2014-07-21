@@ -211,10 +211,10 @@ public class Game {
 
         if (scoreboard != null) {
             if (scoreboard.getEntries().size() >= 16){
-                objective.getScoreboard().resetScores(ChatColor.GREEN + player.getName());
+                objective.getScoreboard().resetScores((ChatColor.GREEN + player.getName()).substring(0,15));
             } else {
-                objective.getScore(ChatColor.RED + player.getName()).setScore(objective.getScore(ChatColor.GREEN + player.getName()).getScore() + PluginConfig.getScorePerDeath(player));
-                objective.getScoreboard().resetScores(ChatColor.GREEN + player.getName());
+                objective.getScore((ChatColor.RED + player.getName()).substring(0,15)).setScore(objective.getScore((ChatColor.GREEN + player.getName()).substring(0,15)).getScore() + PluginConfig.getScorePerDeath(player));
+                objective.getScoreboard().resetScores((ChatColor.GREEN + player.getName()).substring(0,15));
             }
             try {
                 player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
@@ -261,7 +261,7 @@ public class Game {
         if (gameKiller != null && !gameKiller.equals(gamePlayer)) {
             int scorePerKill = PluginConfig.getScorePerKill(killer);
             gameKiller.addScore(scorePerKill);
-            objective.getScore(ChatColor.GREEN + killer.getName()).setScore(objective.getScore(killer).getScore() + scorePerKill);
+            objective.getScore((ChatColor.GREEN + killer.getName()).substring(0,15)).setScore(objective.getScore(killer).getScore() + scorePerKill);
             gameKiller.setKills(gameKiller.getKills() + 1);
 
             sendMessage(new Messaging.MessageFormatter()
@@ -326,7 +326,7 @@ public class Game {
             GamePlayer gamePlayer = playerEntry.getValue();
 
             if (gamePlayer != null) {
-                objective.getScore(ChatColor.GREEN + gamePlayer.getBukkitPlayer().getName()).setScore(0);
+                objective.getScore((ChatColor.GREEN + gamePlayer.getBukkitPlayer().getName()).substring(0,15)).setScore(0);
                 IconMenuController.get().destroy(gamePlayer.getBukkitPlayer());
                 getSpawn(playerEntry.getKey()).clone().add(0, -1D, 0).getBlock().setType(Material.AIR);
                 gamePlayer.setGamesPlayed(gamePlayer.getGamesPlayed() + 1);
