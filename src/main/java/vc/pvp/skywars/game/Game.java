@@ -214,7 +214,11 @@ public class Game {
         }
 
         if (scoreboard != null) {
-            objective.getScore(player).setScore(-playerCount);
+            if (scoreboard.getEntries().size() >= 16){
+                objective.getScoreboard().resetScores(player);
+            } else {
+                objective.getScore(player).setScore(-playerCount);
+            }
             try {
                 player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
             } catch (IllegalStateException ignored) {
@@ -257,7 +261,7 @@ public class Game {
             gameKiller = PlayerController.get().get(killer);
         }
 
-        if (gameKiller != null) {
+        if (gameKiller != null && !gameKiller.equals(gamePlayer)) {
             int scorePerKill = PluginConfig.getScorePerKill(killer);
             gameKiller.addScore(scorePerKill);
             gameKiller.setKills(gameKiller.getKills() + 1);
