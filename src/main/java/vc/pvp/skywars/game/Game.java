@@ -3,10 +3,7 @@ package vc.pvp.skywars.game;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.sk89q.worldedit.CuboidClipboard;
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.entity.Player;
@@ -27,8 +24,7 @@ import vc.pvp.skywars.utilities.StringUtils;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
 
@@ -215,9 +211,10 @@ public class Game {
 
         if (scoreboard != null) {
             if (scoreboard.getEntries().size() >= 16){
-                objective.getScoreboard().resetScores(player);
+                objective.getScoreboard().resetScores(ChatColor.GREEN + player.getName());
             } else {
-                objective.getScore(player).setScore(-playerCount);
+                objective.getScore(ChatColor.RED + player.getName()).setScore(objective.getScore(ChatColor.GREEN + player.getName()).getScore() + PluginConfig.getScorePerDeath(player));
+                objective.getScoreboard().resetScores(ChatColor.GREEN + player.getName());
             }
             try {
                 player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
@@ -264,6 +261,7 @@ public class Game {
         if (gameKiller != null && !gameKiller.equals(gamePlayer)) {
             int scorePerKill = PluginConfig.getScorePerKill(killer);
             gameKiller.addScore(scorePerKill);
+            objective.getScore(ChatColor.GREEN + killer.getName()).setScore(objective.getScore(killer).getScore() + scorePerKill);
             gameKiller.setKills(gameKiller.getKills() + 1);
 
             sendMessage(new Messaging.MessageFormatter()
@@ -328,7 +326,7 @@ public class Game {
             GamePlayer gamePlayer = playerEntry.getValue();
 
             if (gamePlayer != null) {
-                objective.getScore(gamePlayer.getBukkitPlayer()).setScore(0);
+                objective.getScore(ChatColor.GREEN + gamePlayer.getBukkitPlayer().getName()).setScore(0);
                 IconMenuController.get().destroy(gamePlayer.getBukkitPlayer());
                 getSpawn(playerEntry.getKey()).clone().add(0, -1D, 0).getBlock().setType(Material.AIR);
                 gamePlayer.setGamesPlayed(gamePlayer.getGamesPlayed() + 1);
