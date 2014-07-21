@@ -210,11 +210,18 @@ public class Game {
         }
 
         if (scoreboard != null) {
+
             if (scoreboard.getEntries().size() >= 16){
-                objective.getScoreboard().resetScores(ChatColor.GREEN + player.getName());
+                String playerString = ChatColor.GREEN + player.getName();
+                if (playerString.length() > 16)  playerString = playerString.substring(0,15);
+                objective.getScoreboard().resetScores(playerString);
             } else {
-                objective.getScore(ChatColor.RED + player.getName()).setScore(objective.getScore(ChatColor.GREEN + player.getName()).getScore() + PluginConfig.getScorePerDeath(player));
-                objective.getScoreboard().resetScores(ChatColor.GREEN + player.getName());
+                String playerString1 = ChatColor.GREEN + player.getName();
+                String playerString2 = ChatColor.RED + player.getName();
+                if (playerString1.length() > 16)  playerString1 = playerString1.substring(0,15);
+                if (playerString2.length() > 16)  playerString2 = playerString2.substring(0,15);
+                objective.getScore(playerString2).setScore(objective.getScore(playerString1).getScore() + PluginConfig.getScorePerDeath(player));
+                objective.getScoreboard().resetScores(playerString1);
             }
             try {
                 player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
@@ -261,7 +268,9 @@ public class Game {
         if (gameKiller != null && !gameKiller.equals(gamePlayer)) {
             int scorePerKill = PluginConfig.getScorePerKill(killer);
             gameKiller.addScore(scorePerKill);
-            objective.getScore(ChatColor.GREEN + killer.getName()).setScore(objective.getScore(killer).getScore() + scorePerKill);
+            String playerString = ChatColor.GREEN + killer.getName();
+            if (playerString.length() > 16)  playerString = playerString.substring(0,15);
+            objective.getScore(playerString).setScore(objective.getScore(playerString).getScore() + scorePerKill);
             gameKiller.setKills(gameKiller.getKills() + 1);
 
             sendMessage(new Messaging.MessageFormatter()
@@ -326,7 +335,9 @@ public class Game {
             GamePlayer gamePlayer = playerEntry.getValue();
 
             if (gamePlayer != null) {
-                objective.getScore(ChatColor.GREEN + gamePlayer.getBukkitPlayer().getName()).setScore(0);
+                String playerString = ChatColor.GREEN + gamePlayer.getBukkitPlayer().getName();
+                if (playerString.length() > 16)  playerString = playerString.substring(0,15);
+                objective.getScore(playerString).setScore(0);
                 IconMenuController.get().destroy(gamePlayer.getBukkitPlayer());
                 getSpawn(playerEntry.getKey()).clone().add(0, -1D, 0).getBlock().setType(Material.AIR);
                 gamePlayer.setGamesPlayed(gamePlayer.getGamesPlayed() + 1);
