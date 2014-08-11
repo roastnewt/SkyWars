@@ -161,7 +161,7 @@ public class WorldController {
             world.setTicksPerAnimalSpawns(0);
             world.setTicksPerMonsterSpawns(0);
         }
-        world.setAutoSave(false);
+        world.setAutoSave(true);
         world.setTime(6000); //noon
         world.setGameRuleValue("doDaylightCycle", "false");
         world.setGameRuleValue("doFireTick", "true");
