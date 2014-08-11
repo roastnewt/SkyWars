@@ -269,8 +269,14 @@ public class Game {
             int scorePerKill = PluginConfig.getScorePerKill(killer);
             gameKiller.addScore(scorePerKill);
             String playerString = ChatColor.GREEN + killer.getName();
-            if (playerString.length() > 16)  playerString = playerString.substring(0,15);
-            objective.getScore(playerString).setScore(objective.getScore(playerString).getScore() + scorePerKill);
+            String deadPlayerString = ChatColor.RED + killer.getName();
+            if (playerString.length() > 16) playerString = playerString.substring(0,15);
+            if (deadPlayerString.length() > 16) deadPlayerString = deadPlayerString.substring(0,15);
+            if (gameKiller.isPlaying()) {  //i.e. not dead
+                objective.getScore(playerString).setScore(objective.getScore(playerString).getScore() + scorePerKill);
+            } else {
+                objective.getScore(deadPlayerString).setScore(objective.getScore(deadPlayerString).getScore() + scorePerKill);
+            }
             gameKiller.setKills(gameKiller.getKills() + 1);
 
             sendMessage(new Messaging.MessageFormatter()
