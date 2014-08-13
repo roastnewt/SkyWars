@@ -82,6 +82,11 @@ public class PlayerListener implements Listener {
                     return;
                 }
 
+                if (player.getGameMode() != GameMode.SURVIVAL) {
+                    player.sendMessage("You are only allowed to join games when in survival mode!");
+                    return;
+                }
+
                 Game game = GameController.get().findEmpty();
                 game.onPlayerJoin(gamePlayer);
             }
