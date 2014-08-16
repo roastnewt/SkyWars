@@ -48,7 +48,7 @@ public class PlayerListener implements Listener {
         Player player = event.getPlayer();
         final GamePlayer gamePlayer = PlayerController.get().get(player);
 
-        if (gamePlayer.isPlaying()) {
+        if (gamePlayer != null && gamePlayer.isPlaying()) {
             event.setRespawnLocation(PluginConfig.getLobbySpawn());
 
             if (PluginConfig.saveInventory()) {
