@@ -99,7 +99,7 @@ public class SchematicController {
                                 cacheSpawn(schematic, spawnId++, currentPoint);
                                 schematic.setBlock(currentPoint, new BaseBlock(0));
 
-                            } else if (currentBlock == Material.CHEST.getId()) {
+                            } else if (currentBlock == Material.CHEST.getId() || currentBlock == Material.TRAPPED_CHEST.getId()) {
                                 cacheChest(schematic, currentPoint);
                             }
 
