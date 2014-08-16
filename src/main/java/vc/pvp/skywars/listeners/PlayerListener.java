@@ -149,7 +149,7 @@ public class PlayerListener implements Listener {
 
         } else {
             for (GamePlayer gp : PlayerController.get().getAll()) {
-                if (!gp.isPlaying()) {
+                if (!gp.isPlaying() && gp.getBukkitPlayer().getWorld().equals(player.getWorld())) {
                     gp.getBukkitPlayer().sendMessage(message);
                 }
             }
