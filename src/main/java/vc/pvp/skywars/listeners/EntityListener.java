@@ -59,17 +59,22 @@ public class EntityListener implements Listener {
             return;
         }
 
-        DamageCause damageCause = player.getLastDamageCause().getCause();
-        if (player.getLastDamageCause() instanceof EntityDamageByEntityEvent) {
-            Bukkit.getScheduler().runTaskLater(SkyWars.get(), new Runnable() {
-                @Override
-                public void run() {
-                    gamePlayer.getGame().onPlayerDeath(gamePlayer, event);
-                }
-            }, 1L);
-        } else if (damageCause == DamageCause.LAVA || damageCause == DamageCause.FIRE || damageCause == DamageCause.FIRE_TICK) {
-            gamePlayer.setSkipFireTicks(true);
-            gamePlayer.getGame().onPlayerDeath(gamePlayer, event);
+        DamageCause damageCause = null;
+        if (player.getLastDamageCause().getCause() != null) {
+            damageCause = player.getLastDamageCause().getCause();
+            if (player.getLastDamageCause() instanceof EntityDamageByEntityEvent) {
+                Bukkit.getScheduler().runTaskLater(SkyWars.get(), new Runnable() {
+                    @Override
+                    public void run() {
+                        gamePlayer.getGame().onPlayerDeath(gamePlayer, event);
+                    }
+                }, 1L);
+            } else if (damageCause == DamageCause.LAVA || damageCause == DamageCause.FIRE || damageCause == DamageCause.FIRE_TICK) {
+                gamePlayer.setSkipFireTicks(true);
+                gamePlayer.getGame().onPlayerDeath(gamePlayer, event);
+            } else {
+                gamePlayer.getGame().onPlayerDeath(gamePlayer, event);
+            }
         } else {
             gamePlayer.getGame().onPlayerDeath(gamePlayer, event);
         }
