@@ -174,9 +174,9 @@ public class Game {
             KitController.get().openKitMenu(gamePlayer);
         }
 
-        if (!PluginConfig.buildSchematic()) {
+        //if (!PluginConfig.buildSchematic()) { why?
             timer = getTimer();
-        }
+        //}
     }
 
     public void onPlayerLeave(GamePlayer gamePlayer) {
