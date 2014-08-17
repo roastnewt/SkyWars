@@ -142,7 +142,7 @@ public class WorldController {
                 mvWorld.setEnableWeather(false);
                 mvWorld.setKeepSpawnInMemory(false);
                 mvWorld.setAllowAnimalSpawn(false);
-                mvWorld.setAllowMonsterSpawn(false);
+                mvWorld.setAllowMonsterSpawn(true);
             }
         }
         if (world == null) {
