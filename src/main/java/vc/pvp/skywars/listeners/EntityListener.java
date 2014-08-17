@@ -63,7 +63,7 @@ public class EntityListener implements Listener {
         }
 
         DamageCause damageCause = null;
-        if (player.getLastDamageCause().getCause() != null) {
+        if (player.getLastDamageCause() != null && player.getLastDamageCause().getCause() != null) {
             damageCause = player.getLastDamageCause().getCause();
             if (player.getLastDamageCause() instanceof EntityDamageByEntityEvent) {
                 Bukkit.getScheduler().runTaskLater(SkyWars.get(), new Runnable() {
