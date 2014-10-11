@@ -95,7 +95,7 @@ public class SchematicController {
                                 continue;
                             }
 
-                            if (currentBlock == Material.SIGN_POST.getId() || currentBlock == Material.BEACON.getId()) {
+                            if (currentBlock == Material.BEACON.getId()) {
                                 cacheSpawn(schematic, spawnId++, currentPoint);
                                 schematic.setBlock(currentPoint, new BaseBlock(0));
 
