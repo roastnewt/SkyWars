@@ -158,6 +158,7 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onPlayerCommand(PlayerCommandPreprocessEvent event) {
+        if (event.getPlayer() == null) return;
         Player player = event.getPlayer();
         GamePlayer gamePlayer = PlayerController.get().get(player);
 
