@@ -1,8 +1,8 @@
-name: ${project.name}
-version: ${project.version}
-description: ${project.description}
-authors: [Wietje, andypandy89]
-main: ${project.groupId}.${project.artifactId}.${project.name}
+name: SkyWars
+version: 1.0
+description: SkyWars
+authors: [Wietje, andypandy89, roastnewt]
+main: vc.pvp.skywars.SkyWars
 depend: [WorldEdit, Vault]
 softdepend: [Essentials, WhatIsIt, CommandHelper, Multiverse-Core, WorldGuard]
 
