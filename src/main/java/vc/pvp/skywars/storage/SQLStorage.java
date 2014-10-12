@@ -131,21 +131,53 @@ public class SQLStorage extends DataStorage {
                 PreparedStatement preparedStatement = null;
 
                 try {
-                    StringBuilder queryBuilder = new StringBuilder();
-                    queryBuilder.append("UPDATE `skywars_player` SET ");
-                    queryBuilder.append("`score` = ?, `games_played` = ?, ");
-                    queryBuilder.append("`games_won` = ?, `kills` = ?, ");
-                    queryBuilder.append("`deaths` = ?, `last_seen` = NOW() ");
-                    queryBuilder.append("WHERE `player_name` = ?;");
 
-                    preparedStatement = connection.prepareStatement(queryBuilder.toString());
-                    preparedStatement.setInt(1, gamePlayer.getScore());
-                    preparedStatement.setInt(2, gamePlayer.getGamesPlayed());
-                    preparedStatement.setInt(3, gamePlayer.getGamesWon());
-                    preparedStatement.setInt(4, gamePlayer.getKills());
-                    preparedStatement.setInt(5, gamePlayer.getDeaths());
-                    preparedStatement.setString(6, gamePlayer.getName());
-                    preparedStatement.executeUpdate();
+                    StringBuilder queryBuilder2 = new StringBuilder();
+
+                    queryBuilder2.append("SELECT `score`, `games_played`, `games_won`, `kills`, `deaths` ");
+                    queryBuilder2.append("FROM `skywars_player` ");
+                    queryBuilder2.append("WHERE `player_name` = ? ");
+                    queryBuilder2.append("LIMIT 1;");
+
+                    preparedStatement = connection.prepareStatement(queryBuilder2.toString());
+                    preparedStatement.setString(1, gamePlayer.getName());
+                    ResultSet rs = preparedStatement.executeQuery();
+
+                    if (rs.next()) {
+
+                        int gamesPlayed = rs.getInt(2);
+                        int gamesWon = rs.getInt(3);
+                        int kills = rs.getInt(4);
+                        int deaths = rs.getInt(5);
+
+                        if (gamePlayer.getGamesPlayed() < gamesPlayed
+                                || gamePlayer.getGamesWon() < gamesWon
+                                || gamePlayer.getKills() < kills
+                                || gamePlayer.getDeaths() < deaths) {
+
+                            //do nothing
+
+                        } else {
+
+                            StringBuilder queryBuilder = new StringBuilder();
+                            queryBuilder.append("UPDATE `skywars_player` SET ");
+                            queryBuilder.append("`score` = ?, `games_played` = ?, ");
+                            queryBuilder.append("`games_won` = ?, `kills` = ?, ");
+                            queryBuilder.append("`deaths` = ?, `last_seen` = NOW() ");
+                            queryBuilder.append("WHERE `player_name` = ?;");
+
+                            preparedStatement = connection.prepareStatement(queryBuilder.toString());
+                            preparedStatement.setInt(1, gamePlayer.getScore());
+                            preparedStatement.setInt(2, gamePlayer.getGamesPlayed());
+                            preparedStatement.setInt(3, gamePlayer.getGamesWon());
+                            preparedStatement.setInt(4, gamePlayer.getKills());
+                            preparedStatement.setInt(5, gamePlayer.getDeaths());
+                            preparedStatement.setString(6, gamePlayer.getName());
+                            preparedStatement.executeUpdate();
+
+                        }
+
+                    }
 
                 } catch (final SQLException sqlException) {
                     sqlException.printStackTrace();
